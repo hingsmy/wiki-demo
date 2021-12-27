@@ -2,10 +2,12 @@ package com.hingsmy.wiki.mapper;
 
 import com.hingsmy.wiki.domain.Ebook;
 import com.hingsmy.wiki.domain.EbookExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface EbookMapper {
     long countByExample(EbookExample example);
 
