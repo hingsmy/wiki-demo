@@ -10,6 +10,7 @@ import com.hingsmy.wiki.req.EbookSaveReq;
 import com.hingsmy.wiki.resp.EbookQueryResp;
 import com.hingsmy.wiki.resp.PageResp;
 import com.hingsmy.wiki.util.CopyUtil;
+import com.hingsmy.wiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class EbookService {
 
     @Autowired
     private EbookMapper ebookMapper;
+
+    @Autowired
+    private SnowFlake snowFlake;
 
     public PageResp<EbookQueryResp> list(EbookQueryReq req) {
 
@@ -63,6 +67,7 @@ public class EbookService {
         Ebook ebook = CopyUtil.copy(req, Ebook.class);
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增
+            ebook.setId(snowFlake.nextId());
             ebookMapper.insert(ebook);
         } else {
             // 更新
